@@ -11,11 +11,11 @@ from itertools import count
 import re
 import argparse
 
-PROGNAME = 'FAS archive creator'
-DESCRIPTION = 'Скрипт для формирования архивов по процедурам'
-VERSION = '2.0'
+PROGNAME = 'FAS archive creator 44'
+DESCRIPTION = 'Скрипт для формирования архивов по процедурам 44'
+VERSION = '1.0'
 AUTHOR = 'Belim S.'
-RELEASE_DATE = '2017-08-23'
+RELEASE_DATE = '2018-07-04'
 
 
 DATA_PROCESSED = 0
@@ -52,7 +52,7 @@ def found_location_dir(data, dir_column):
 
 # функция для проверки корректности номера процедуры
 def test_procedure_number(procedure_number):
-    if re.fullmatch(r'([0-9]{11})', procedure_number):
+    if re.fullmatch(r'([0-9]{19})|(ПО[0-9]{17})|(ЭАКР[0-9]{15})', procedure_number):
         return True
     else:
         return False
@@ -77,7 +77,7 @@ def procedure_archiving(procedure_number):
     cn = Mc(connection=Mc.MS_44_2_CONNECT)
     print('Обработка %(procedure_number)s начата' % vars())
     # проверяем, существует ли уже архив для данной процедуры
-    archive_procedures_list = [archive[0:11] for archive in listdir(work_dir) if archive.endswith('.zip')
+    archive_procedures_list = [archive[0:19] for archive in listdir(work_dir) if archive.endswith('.zip')
                                and isfile(join(work_dir, archive))]
 
     if procedure_number in archive_procedures_list:

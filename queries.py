@@ -9,7 +9,7 @@ FROM procedureRequest r
     ON p.id = r.procedureId
   JOIN procedureRequestDocument rd
     ON rd.requestId = r.id
-WHERE p.registrationNumber = '%(procedureNumber)s'
+WHERE p.registrationNumber = '%(procedure_number)s'
 AND r.actualId IS NULL
 AND r.requestStatusId != 19
 ;'''
@@ -27,7 +27,7 @@ FROM procedures p
     AND p1.status = 24
   JOIN procedureProtocolDocument pd
     ON pd.protocolId = p1.id
-WHERE p.registrationNumber = '%(procedureNumber)s'
+WHERE p.registrationNumber = '%(procedure_number)s'
 AND p.actualId IS NULL;'''
 
 
@@ -40,7 +40,7 @@ FROM procedures p
     ON e.procedureId = p.id
   JOIN procedureExplanationDocument ed
     ON ed.explanationId = e.id
-WHERE p.registrationNumber = '%(procedureNumber)s'
+WHERE p.registrationNumber = '%(procedure_number)s'
 AND e.discriminator = 'request'
 AND p.actualId IS NULL;'''
 
@@ -57,7 +57,7 @@ FROM procedures p
     ON r.id = rf.requestId
   JOIN procedureRequestFeatureDocument rfd
     ON rfd.requestFeatureId = rf.id
-WHERE p.registrationNumber = '%(procedureNumber)s'
+WHERE p.registrationNumber = '%(procedure_number)s'
 AND p.actualId IS NULL;'''
 
 
@@ -72,7 +72,7 @@ FROM procedures p
     ON r.procedureId = p.id AND r.requestStatusId != 19
   JOIN organization o ON o.id = r.organizationId AND o.actualId IS NULL
   JOIN organizationDocument d ON d.organizationId = o.id
-WHERE p.registrationNumber = '%(procedureNumber)s'
+WHERE p.registrationNumber = '%(procedure_number)s'
 AND p.actualId IS NULL;
 '''
 
@@ -92,6 +92,6 @@ FROM procedures p
     ON org.id = r.organizationId AND org.actualId IS NULL
   JOIN procedureOffer o
     ON o.procedureId = p.id AND o.requestId = r.id
-WHERE p.registrationNumber = '%(procedureNumber)s'
+WHERE p.registrationNumber = '%(procedure_number)s'
 ORDER BY p.registrationNumber, o.number DESC
 ;'''

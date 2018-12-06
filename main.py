@@ -52,7 +52,7 @@ def found_location_dir(data, dir_column):
 
 # функция для проверки корректности номера процедуры
 def test_procedure_number(procedure_number):
-    if re.fullmatch(r'([0-9]{19})|(ПО[0-9]{17})|(ЭАКР[0-9]{15})', procedure_number):
+    if re.fullmatch(r'([0-9]{18,19})|(ПО[0-9]{17})|(ЭАКР[0-9]{15})', procedure_number):
         return True
     else:
         return False
@@ -310,10 +310,12 @@ if __name__ == '__main__':
         exit(0)
 
     # обработка процедуры из командной строки
-    elif namespace.procedure:
+    # elif namespace.procedure:
+    elif True:
         if test_procedure_number(namespace.procedure):
             procedure_number = namespace.procedure
-            procedure_archiving(procedure_number)
+            # procedure_archiving(procedure_number)
+            procedure_archiving('0164300016518000478')
             exit(0)
         else:
             print('Указан некорректный номер процедуры')
